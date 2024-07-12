@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Boards;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class BoardsController extends Controller
 {
@@ -12,7 +14,8 @@ class BoardsController extends Controller
      */
     public function index()
     {
-        //
+        $boards = Boards::all();
+        return view('boards.index', compact('boards'));
     }
 
     /**
@@ -20,15 +23,20 @@ class BoardsController extends Controller
      */
     public function create()
     {
-        //
+        return view('boards.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(Request $request) :RedirectResponse
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'background' => 'nullable|string|max:8'
+        ]);
+        $request->user()->boards()->create($validated);
+        return redirect(route('boards.index'));
     }
 
     /**
