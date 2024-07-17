@@ -18,19 +18,19 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+// Route::middleware('auth')->group(function () {
+//     Route::Resource('boards', BoardsController::class)->names([
+//         'index' => 'boards.index',
+//         'create' => 'boards.create',
+//         'store' => 'boards.store',
+//         'show' => 'boards.show',
+//         'update' => 'boards.update',
+//         'destroy' => 'boards.destroy',
+//     ]);
+// });
+
 Route::resource('boards', BoardsController::class)//La route /board est créée en prenant comme modèle BoardController
     ->only(['index', 'store', 'create'])//Les méthodes de boardController utilisées
     ->middleware(['auth', 'verified']);//Requiert l'authentification
-
-Route::middleware('auth')->group(function () {
-    Route::Resource('boards', BoardsController::class)->names([
-        'index' => 'boards.index',
-        'create' => 'boards.create',
-        'store' => 'boards.store',
-        'show' => 'boards.show',
-        'update' => 'boards.update',
-        'destroy' => 'boards.destroy',
-    ]);
-});
 
 require __DIR__.'/auth.php';

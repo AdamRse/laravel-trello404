@@ -17,7 +17,7 @@
 
         <div class="form-group">
             <label for="background">Couleur de fond :</label>
-            <input type="color" id="background" name="background" class="form-control" value="{{ old('background') }}">
+            <input type="text" id="background" name="background" class="form-control" value="{{ old('background', '#ddd') }}" required>
             <small class="form-text text-muted">Entrez une couleur CSS (par exemple #FFFFFF pour blanc).</small>
             @error('background')
                 <p class="text-danger">{{ $message }}</p>

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('boards', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('background')->default('#ddd');
+            $table->string('background');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');//Set la clé étrangère
             $table->timestamps();
         });
